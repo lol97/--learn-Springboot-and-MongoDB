@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import com.aglistech.mongoboot.groceryitem.CustomItemRepository;
 import com.aglistech.mongoboot.groceryitem.GroceryItem;
 import com.aglistech.mongoboot.groceryitem.GroceryItemRepository;
 
@@ -17,6 +18,9 @@ import com.aglistech.mongoboot.groceryitem.GroceryItemRepository;
 public class SpringMongoApplication implements CommandLineRunner {
 	@Autowired
 	GroceryItemRepository groceryItemRepo;
+	
+	@Autowired
+	CustomItemRepository customItemRepository;
 
 	List<GroceryItem> itemList = new ArrayList<GroceryItem>();
 
@@ -53,17 +57,17 @@ public class SpringMongoApplication implements CommandLineRunner {
 
 		System.out.println("\n-----------UPDATE QUANTITY OF A GROCERY ITEM------------------------\n");
 
-//		updateItemQuantity("Bonny Cheese Crackers Plain", 10);
-//
-//		System.out.println("\n----------DELETE A GROCERY ITEM----------------------------------\n");
-//
-//		deleteGroceryItem("Kodo Millet");
-//
-//		System.out.println("\n------------FINAL COUNT OF GROCERY ITEMS-------------------------\n");
-//
-//		findCountOfGroceryItems();
-//
-//		System.out.println("\n-------------------THANK YOU---------------------------");
+		updateItemQuantity("Bonny Cheese Crackers Plain", 10);
+
+		System.out.println("\n----------DELETE A GROCERY ITEM----------------------------------\n");
+
+		deleteGroceryItem("Kodo Millet");
+
+		System.out.println("\n------------FINAL COUNT OF GROCERY ITEMS-------------------------\n");
+
+		findCountOfGroceryItems();
+
+		System.out.println("\n-------------------THANK YOU---------------------------");
 
 	}
 
@@ -133,18 +137,18 @@ public class SpringMongoApplication implements CommandLineRunner {
 			System.out.println("Successfully updated " + itemsUpdated.size() + " items.");
 	}
 
-//	// UPDATE APPROACH 2: Using MongoTemplate
-//	public void updateItemQuantity(String name, float newQuantity) {
-//		System.out.println("Updating quantity for " + name);
-//		customRepo.updateItemQuantity(name, newQuantity);
-//	}
-//
-//	// DELETE
-//	public void deleteGroceryItem(String id) {
-//		groceryItemRepo.deleteById(id);
-//		System.out.println("Item with id " + id + " deleted...");
-//	}
-//	// Print details in readable form
+	// UPDATE APPROACH 2: Using MongoTemplate
+	public void updateItemQuantity(String name, float newQuantity) {
+		System.out.println("Updating quantity for " + name);
+		customItemRepository.updateItemQuantity(name, newQuantity);
+	}
+
+	// DELETE
+	public void deleteGroceryItem(String id) {
+		groceryItemRepo.deleteById(id);
+		System.out.println("Item with id " + id + " deleted...");
+	}
+	// Print details in readable form
 //
 	public String getItemDetails(GroceryItem item) {
 
